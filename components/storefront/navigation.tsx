@@ -277,21 +277,21 @@ export function Navigation({ cartItemCount = 0, onCartClick }: NavigationProps) 
               <img
                 src="/teodorus.png"
                 alt="Teodorus"
-                className="h-6 sm:h-7 md:h-8 w-auto"
+                className="h-4 sm:h-5 md:h-6 w-auto"
               />
             </Link>
 
-            {/* Right side - Wishlist, Account, Cart */}
+            {/* Right side - Wishlist (hidden on mobile), Account, Cart */}
             <div className="flex items-center gap-0 sm:gap-1">
-              {/* Wishlist */}
-              <Link href="/wishlist" onClick={() => closeAllMenus(true)}>
+              {/* Wishlist - hidden on mobile, shown in menu footer instead */}
+              <Link href="/wishlist" onClick={() => closeAllMenus(true)} className="hidden sm:block">
                 <motion.div
                   whileTap={{ scale: 0.95 }}
-                  className="relative h-10 w-10 sm:h-11 sm:w-11 flex items-center justify-center rounded-full text-foreground hover:bg-secondary active:bg-secondary transition-colors"
+                  className="relative h-11 w-11 flex items-center justify-center rounded-full text-foreground hover:bg-secondary active:bg-secondary transition-colors"
                   aria-label={`Wishlist with ${wishlistItems.length} items`}
                 >
                   <svg
-                    className="h-[18px] w-[18px] sm:h-5 sm:w-5"
+                    className="h-5 w-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -674,21 +674,44 @@ export function Navigation({ cartItemCount = 0, onCartClick }: NavigationProps) 
                     )}
                   </div>
 
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-4">
+                    {/* Wishlist - icon button on mobile, text on desktop */}
                     <Link
                       href="/wishlist"
                       onClick={() => closeAllMenus(true)}
-                      className="hover:text-foreground transition-colors"
+                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors sm:text-sm sm:text-muted-foreground"
                     >
-                      Wishlist ({wishlistItems.length})
+                      <div className="relative w-10 h-10 rounded-full border border-border flex items-center justify-center sm:hidden">
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={1.5}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                          />
+                        </svg>
+                        {wishlistItems.length > 0 && (
+                          <span className="absolute -top-0.5 -right-0.5 h-5 w-5 flex items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
+                            {wishlistItems.length}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-sm font-medium sm:font-normal">
+                        Wishlist<span className="hidden sm:inline"> ({wishlistItems.length})</span>
+                      </span>
                     </Link>
-                    <span className="text-border">|</span>
+                    <span className="text-border hidden sm:inline">|</span>
                     <button
                       onClick={() => {
                         closeAllMenus(false);
                         onCartClick?.();
                       }}
-                      className="hover:text-foreground transition-colors"
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                     >
                       Cart ({cartItemCount})
                     </button>

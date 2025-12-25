@@ -109,10 +109,10 @@ export default function ShopPage() {
       {/* Filters */}
       <section className="border-y border-border sticky top-12 sm:top-14 md:top-16 z-30 bg-background/95 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-3 py-3 sm:py-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 py-3 sm:py-4">
             {/* Category filters */}
             {categories.length > 1 && (
-              <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0 pb-1">
+              <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide min-w-0 order-2 sm:order-1 w-full sm:w-auto sm:flex-1">
                 {categories.slice(0, 6).map((category) => (
                   <motion.button
                     key={category.id}
@@ -132,8 +132,8 @@ export default function ShopPage() {
             )}
 
             {/* Sort dropdown */}
-            <div className="flex items-center justify-between sm:justify-end gap-2">
-              <span className="text-xs sm:text-sm text-muted-foreground sm:mr-2">
+            <div className="flex items-center gap-2 flex-shrink-0 order-1 sm:order-2 w-full sm:w-auto justify-between sm:justify-end">
+              <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
                 {filteredProducts.length} products
               </span>
               <select

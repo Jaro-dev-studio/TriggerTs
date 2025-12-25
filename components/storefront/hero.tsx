@@ -181,7 +181,7 @@ export function HeroWithProduct() {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center p-8">
                   <p className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-foreground/10 mb-2">
-                    TriggerTs
+                    Teodorus
                   </p>
                 </div>
               </div>

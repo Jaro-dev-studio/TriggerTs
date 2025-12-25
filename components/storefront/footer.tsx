@@ -21,46 +21,8 @@ const footerLinks = {
 };
 
 export function Footer() {
-  const [email, setEmail] = React.useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle newsletter signup
-    setEmail("");
-  };
-
   return (
     <footer className="bg-secondary border-t border-border">
-      {/* Newsletter section */}
-      <div className="border-b border-border">
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-12 sm:py-16">
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
-            <div>
-              <h3 className="text-xl sm:text-2xl font-display font-bold text-foreground">
-                Stay updated
-              </h3>
-            </div>
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                required
-                className="flex-1 h-14 sm:h-12 px-5 bg-background border border-border rounded-full text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-base"
-              />
-              <motion.button
-                type="submit"
-                whileTap={{ scale: 0.98 }}
-                className="h-14 sm:h-12 px-6 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary-hover active:bg-primary-hover transition-colors whitespace-nowrap"
-              >
-                Subscribe
-              </motion.button>
-            </form>
-          </div>
-        </div>
-      </div>
-
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
@@ -69,7 +31,7 @@ export function Footer() {
             <Link href="/" className="inline-block mb-4">
               <img
                 src="/logo.png"
-                alt="TriggerTs"
+                alt="Teodorus"
                 className="h-8 w-auto"
               />
             </Link>
@@ -161,7 +123,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted-foreground">
-            {new Date().getFullYear()} TriggerTs
+            {new Date().getFullYear()} Teodorus
           </p>
           <div className="flex items-center gap-4 text-xs text-muted-foreground">
             <Link href="/privacy" className="hover:text-foreground transition-colors">

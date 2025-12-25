@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* 
- * TriggerTs - Heritage Luxury
+ * Teodorus - Heritage Luxury
  * Color palette: Ralph Lauren inspired - navy, cream, muted gold
  */
 :root {
@@ -9,9 +9,9 @@
   --color-background: #FDFBF7;
   --color-foreground: #1E1E1E;
   
-  /* Primary - classic navy (signature RL color) */
-  --color-primary: #1C3A5F;
-  --color-primary-hover: #152D4A;
+  /* Primary - charcoal */
+  --color-primary: #343434;
+  --color-primary-hover: #282828;
   --color-primary-foreground: #FDFBF7;
 
   /* Secondary - warm stone/sand */
@@ -41,13 +41,13 @@
 
   /* Input and form elements */
   --color-input: #F5F1EA;
-  --color-ring: #1C3A5F;
+  --color-ring: #343434;
 
   /* Heritage palette extras */
   --color-ivory: #FAF8F4;
   --color-bone: #E8E2D6;
   --color-cream: #FDFBF7;
-  --color-navy: #1C3A5F;
+  --color-navy: #343434;
   --color-burgundy: #6B2D3C;
   --color-hunter: #2D4A3E;
 

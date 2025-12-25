@@ -48,7 +48,7 @@ export default function AboutPage() {
                   The smartest people we know share one thing: they can laugh at the absurdity while still playing to win.
                 </p>
                 <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                  TriggerTs is for them. Premium quality. Sharp opinions.
+                  Teodorus is for them. Premium quality. Sharp opinions.
                 </p>
               </div>
             </RevealText>

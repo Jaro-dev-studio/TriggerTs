@@ -22,11 +22,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TriggerTs | Luxury Meets Internet Money",
+  title: "Teodorus | Luxury Meets Internet Money",
   description: "Ironic, funny, intelligently controversial t-shirts for the discerning internet native. Quiet luxury with a smirk.",
   keywords: ["t-shirts", "ironic", "luxury streetwear", "internet culture", "meme fashion"],
   openGraph: {
-    title: "TriggerTs | Luxury Meets Internet Money",
+    title: "Teodorus | Luxury Meets Internet Money",
     description: "Ironic, funny, intelligently controversial t-shirts for the discerning internet native.",
     type: "website",
   },

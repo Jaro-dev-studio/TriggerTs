@@ -87,16 +87,16 @@ export default function CollectionPage() {
       </section>
 
       {/* Filters */}
-      <section className="border-b border-border sticky top-12 sm:top-14 md:top-16 z-30 bg-background/95 backdrop-blur-xl">
+      <section className="border-y border-border sticky top-12 sm:top-14 md:top-16 z-30 bg-background/95 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-4">
-            <span className="text-sm text-muted-foreground">
+          <div className="flex items-center justify-between py-3 sm:py-4">
+            <span className="text-xs sm:text-sm text-muted-foreground">
               {sortedProducts.length} products
             </span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="h-10 bg-secondary text-foreground text-sm rounded-lg px-3 border-0 focus:ring-2 focus:ring-primary cursor-pointer"
+              className="h-10 sm:h-9 bg-secondary text-foreground text-sm rounded-lg px-3 border-0 focus:ring-2 focus:ring-primary cursor-pointer"
             >
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -109,7 +109,7 @@ export default function CollectionPage() {
       </section>
 
       {/* Products Grid */}
-      <section className="py-8 sm:py-12">
+      <section className="py-6 sm:py-8 md:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {isLoading ? (
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-8">

@@ -180,7 +180,7 @@ export default function AccountPage() {
                 {activeTab === "forgot" && "Reset Password"}
               </h1>
               <p className="text-muted-foreground">
-                {activeTab === "login" && "Welcome back to TriggerTs"}
+                {activeTab === "login" && "Welcome back to Teodorus"}
                 {activeTab === "register" && "Join the statement makers"}
                 {activeTab === "forgot" && "We'll send you a reset link"}
               </p>
