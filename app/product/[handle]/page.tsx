@@ -3,7 +3,6 @@
 import * as React from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/components/storefront/cart-drawer";
 import { useWishlist } from "@/lib/context/wishlist-context";
@@ -92,7 +91,7 @@ export default function ProductPage() {
           </h1>
           <Link href="/shop" className="text-primary hover:underline">
             Back to shop
-          </Link>
+            </Link>
         </div>
       </div>
     );
@@ -108,19 +107,19 @@ export default function ProductPage() {
           <ol className="flex items-center gap-2 text-sm text-muted-foreground">
             <li>
               <Link href="/" className="hover:text-foreground transition-colors">
-                Home
-              </Link>
+              Home
+            </Link>
             </li>
             <li>/</li>
             <li>
               <Link href="/shop" className="hover:text-foreground transition-colors">
-                Shop
-              </Link>
+              Shop
+            </Link>
             </li>
             <li>/</li>
             <li className="text-foreground">{product.title}</li>
           </ol>
-        </nav>
+          </nav>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
           {/* Product Images */}
@@ -132,7 +131,7 @@ export default function ProductPage() {
               animate={{ opacity: 1 }}
             >
               <AnimatePresence mode="wait">
-                <motion.div
+              <motion.div
                   key={selectedImageIndex}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -141,20 +140,17 @@ export default function ProductPage() {
                   className="absolute inset-0"
                 >
                   {images[selectedImageIndex] ? (
-                    <Image
+                    <img
                       src={images[selectedImageIndex]}
                       alt={product.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      priority
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <p className="text-6xl font-display font-bold text-foreground/5">
                         {product.title.charAt(0)}
-                      </p>
-                    </div>
+                  </p>
+                </div>
                   )}
                 </motion.div>
               </AnimatePresence>
@@ -162,13 +158,13 @@ export default function ProductPage() {
               {/* Wishlist button */}
               <button
                 onClick={() => toggleItem(product.id)}
-                className="absolute top-4 right-4 h-12 w-12 flex items-center justify-center rounded-full bg-foreground/80 backdrop-blur-sm transition-colors"
+                className="absolute top-4 right-4 h-12 w-12 flex items-center justify-center rounded-full bg-background/90 backdrop-blur-sm shadow-sm transition-colors"
                 aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
               >
                 <svg
                   className={cn(
                     "w-6 h-6 transition-colors",
-                    isWishlisted ? "text-primary fill-primary" : "text-background"
+                    isWishlisted ? "text-primary fill-primary" : "text-muted-foreground"
                   )}
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -183,15 +179,15 @@ export default function ProductPage() {
                 </svg>
               </button>
 
-              {/* Sale badge */}
-              {product.compareAtPrice && (
+                {/* Sale badge */}
+                {product.compareAtPrice && (
                 <div className="absolute top-4 left-4">
                   <span className="inline-block px-4 py-2 bg-primary text-primary-foreground text-sm font-bold rounded-full">
                     Sale
-                  </span>
-                </div>
-              )}
-            </motion.div>
+                    </span>
+                  </div>
+                )}
+              </motion.div>
 
             {/* Thumbnail Images */}
             {images.length > 1 && (
@@ -207,31 +203,29 @@ export default function ProductPage() {
                         : "border-transparent hover:border-border"
                     )}
                   >
-                    <Image
+                    <img
                       src={image}
                       alt={`${product.title} ${index + 1}`}
-                      fill
-                      className="object-cover"
-                      sizes="80px"
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
                   </button>
                 ))}
               </div>
-            )}
-          </div>
+                  )}
+                </div>
 
           {/* Product Info */}
           <div className="lg:sticky lg:top-24 lg:self-start space-y-6">
             <RevealText>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground">
-                {product.title}
-              </h1>
+                  {product.title}
+                </h1>
             </RevealText>
 
-            {/* Price */}
+                {/* Price */}
             <RevealText delay={0.1}>
               <div className="flex items-center gap-4">
-                <span className="text-2xl sm:text-3xl font-bold text-foreground">
+                  <span className="text-2xl sm:text-3xl font-bold text-foreground">
                   ${product.price.toFixed(2)}
                 </span>
                 {product.compareAtPrice && (
@@ -239,19 +233,19 @@ export default function ProductPage() {
                     ${product.compareAtPrice.toFixed(2)}
                   </span>
                 )}
-                {product.compareAtPrice && (
+                  {product.compareAtPrice && (
                   <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
                     {Math.round((1 - product.price / product.compareAtPrice) * 100)}% off
-                  </span>
-                )}
-              </div>
+                    </span>
+                  )}
+                </div>
             </RevealText>
 
-            {/* Description */}
+                {/* Description */}
             <RevealText delay={0.15}>
               <p className="text-muted-foreground leading-relaxed">
-                {product.description}
-              </p>
+                  {product.description}
+                </p>
             </RevealText>
 
             {/* Size Selector */}
@@ -271,19 +265,19 @@ export default function ProductPage() {
                       
                       return (
                         <button
-                          key={size}
+                        key={size}
                           onClick={() => isAvailable && setSelectedSize(size)}
                           disabled={!isAvailable}
-                          className={cn(
+                        className={cn(
                             "min-w-[48px] h-12 px-4 rounded-lg font-medium transition-all",
-                            selectedSize === size
-                              ? "bg-foreground text-background"
+                          selectedSize === size
+                            ? "bg-foreground text-background"
                               : isAvailable
                               ? "bg-secondary text-foreground hover:bg-secondary-hover"
                               : "bg-secondary/50 text-muted-foreground/50 cursor-not-allowed line-through"
-                          )}
-                        >
-                          {size}
+                        )}
+                      >
+                        {size}
                         </button>
                       );
                     })}
@@ -331,7 +325,7 @@ export default function ProductPage() {
                       strokeWidth={1.5}
                       d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
-                  </svg>
+                    </svg>
                   <div>
                     <p className="text-sm font-medium text-foreground">Premium Quality</p>
                     <p className="text-sm text-muted-foreground">100% organic cotton</p>
@@ -350,7 +344,7 @@ export default function ProductPage() {
                       strokeWidth={1.5}
                       d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
                     />
-                  </svg>
+                    </svg>
                   <div>
                     <p className="text-sm font-medium text-foreground">Free Shipping</p>
                     <p className="text-sm text-muted-foreground">On orders over $100</p>
@@ -369,13 +363,13 @@ export default function ProductPage() {
                       strokeWidth={1.5}
                       d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"
                     />
-                  </svg>
+                    </svg>
                   <div>
                     <p className="text-sm font-medium text-foreground">Easy Returns</p>
                     <p className="text-sm text-muted-foreground">30-day return policy</p>
                   </div>
-                </div>
-              </div>
+            </div>
+          </div>
             </RevealText>
           </div>
         </div>

@@ -1,55 +1,58 @@
 @import "tailwindcss";
 
 /* 
- * TriggerTs - Luxury Meets Internet Money
- * Color palette: Clean light mode with premium accents
+ * TriggerTs - Heritage Luxury
+ * Color palette: Ralph Lauren inspired - navy, cream, muted gold
  */
 :root {
-  /* Base colors - clean white / rich black */
-  --color-background: #FFFFFF;
-  --color-foreground: #1A1A1A;
+  /* Base colors - warm cream / deep charcoal */
+  --color-background: #FDFBF7;
+  --color-foreground: #1E1E1E;
   
-  /* Primary - rich brown/bronze accent (luxury feel) */
-  --color-primary: #8B7355;
-  --color-primary-hover: #6B5344;
-  --color-primary-foreground: #FFFFFF;
+  /* Primary - classic navy (signature RL color) */
+  --color-primary: #1C3A5F;
+  --color-primary-hover: #152D4A;
+  --color-primary-foreground: #FDFBF7;
 
-  /* Secondary - soft warm gray */
-  --color-secondary: #F5F5F3;
-  --color-secondary-hover: #EAEAE8;
-  --color-secondary-foreground: #1A1A1A;
+  /* Secondary - warm stone/sand */
+  --color-secondary: #F3EFE7;
+  --color-secondary-hover: #E8E2D6;
+  --color-secondary-foreground: #1E1E1E;
 
-  /* Accent - muted gold */
-  --color-accent: #B8956E;
-  --color-accent-hover: #A68560;
-  --color-accent-foreground: #FFFFFF;
+  /* Accent - antique gold */
+  --color-accent: #9E7B4F;
+  --color-accent-hover: #8A6A42;
+  --color-accent-foreground: #FDFBF7;
 
-  /* Muted elements */
-  --color-muted: #F5F5F3;
-  --color-muted-foreground: #6B6B6B;
+  /* Muted elements - warm taupe */
+  --color-muted: #F5F1EA;
+  --color-muted-foreground: #706860;
 
-  /* Border color */
-  --color-border: #E5E5E5;
+  /* Border color - subtle warm gray */
+  --color-border: #E5E0D8;
 
-  /* Card backgrounds */
-  --color-card: #FAFAFA;
-  --color-card-foreground: #1A1A1A;
+  /* Card backgrounds - soft cream */
+  --color-card: #FAF8F4;
+  --color-card-foreground: #1E1E1E;
 
-  /* Destructive/error states */
-  --color-destructive: #DC2626;
-  --color-destructive-foreground: #FFFFFF;
+  /* Destructive/error states - muted burgundy */
+  --color-destructive: #8B3A3A;
+  --color-destructive-foreground: #FDFBF7;
 
   /* Input and form elements */
-  --color-input: #F5F5F3;
-  --color-ring: #8B7355;
+  --color-input: #F5F1EA;
+  --color-ring: #1C3A5F;
 
-  /* Off-white / bone / ivory variants */
-  --color-ivory: #F5F5DC;
-  --color-bone: #E3DAC9;
-  --color-cream: #FFFDD0;
+  /* Heritage palette extras */
+  --color-ivory: #FAF8F4;
+  --color-bone: #E8E2D6;
+  --color-cream: #FDFBF7;
+  --color-navy: #1C3A5F;
+  --color-burgundy: #6B2D3C;
+  --color-hunter: #2D4A3E;
 
-  /* Border radius - slightly sharper for luxury feel */
-  --radius: 0.375rem;
+  /* Border radius - refined, slightly sharper */
+  --radius: 0.25rem;
 }
 
 /* Tailwind v4 theme configuration */
@@ -87,6 +90,9 @@
   --color-ivory: var(--color-ivory);
   --color-bone: var(--color-bone);
   --color-cream: var(--color-cream);
+  --color-navy: var(--color-navy);
+  --color-burgundy: var(--color-burgundy);
+  --color-hunter: var(--color-hunter);
 
   /* Font families */
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;

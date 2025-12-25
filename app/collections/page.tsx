@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { RevealText } from "@/components/storefront/animated-text";
 import { getCollections } from "@/lib/shopify";
@@ -73,12 +72,10 @@ export default function CollectionsPage() {
                   >
                     <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-card mb-4">
                       {collection.image ? (
-                        <Image
+                        <img
                           src={collection.image}
                           alt={collection.title}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/5 via-card to-accent/5">

@@ -644,3 +644,75 @@ export const CUSTOMER_RESET = `
   }
 `;
 
+// Get customer orders with full details
+export const GET_CUSTOMER_ORDERS = `
+  query GetCustomerOrders($customerAccessToken: String!, $first: Int = 20) {
+    customer(customerAccessToken: $customerAccessToken) {
+      orders(first: $first, sortKey: PROCESSED_AT, reverse: true) {
+        edges {
+          node {
+            id
+            name
+            orderNumber
+            processedAt
+            fulfillmentStatus
+            financialStatus
+            currentTotalPrice {
+              amount
+              currencyCode
+            }
+            totalPrice {
+              amount
+              currencyCode
+            }
+            subtotalPrice {
+              amount
+              currencyCode
+            }
+            totalShippingPrice {
+              amount
+              currencyCode
+            }
+            shippingAddress {
+              address1
+              address2
+              city
+              province
+              country
+              zip
+            }
+            lineItems(first: 50) {
+              edges {
+                node {
+                  title
+                  quantity
+                  originalTotalPrice {
+                    amount
+                    currencyCode
+                  }
+                  variant {
+                    id
+                    title
+                    image {
+                      url
+                      altText
+                    }
+                    selectedOptions {
+                      name
+                      value
+                    }
+                    product {
+                      handle
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+

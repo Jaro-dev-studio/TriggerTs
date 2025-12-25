@@ -11,6 +11,8 @@ import type {
   ShopifyProduct,
   ShopifyCollection,
   Customer,
+  Order,
+  OrderLineItem,
 } from "./types";
 
 // Check configuration
@@ -382,5 +384,106 @@ export async function customerRecover(email: string): Promise<{ success: boolean
   }
 
   return { success: true };
+}
+
+// Get customer orders
+export async function getCustomerOrders(accessToken: string, first = 20): Promise<Order[]> {
+  if (!isShopifyConfigured()) {
+    return [];
+  }
+
+  try {
+    const data = await shopifyFetch<{
+      customer: {
+        orders: {
+          edges: Array<{
+            node: {
+              id: string;
+              name: string;
+              orderNumber: number;
+              processedAt: string;
+              fulfillmentStatus: string;
+              financialStatus: string;
+              currentTotalPrice: { amount: string; currencyCode: string };
+              totalPrice: { amount: string; currencyCode: string };
+              subtotalPrice: { amount: string; currencyCode: string };
+              totalShippingPrice: { amount: string; currencyCode: string };
+              shippingAddress: {
+                address1: string | null;
+                address2: string | null;
+                city: string | null;
+                province: string | null;
+                country: string | null;
+                zip: string | null;
+              } | null;
+              lineItems: {
+                edges: Array<{
+                  node: {
+                    title: string;
+                    quantity: number;
+                    originalTotalPrice: { amount: string; currencyCode: string };
+                    variant: {
+                      id: string;
+                      title: string;
+                      image: { url: string; altText: string | null } | null;
+                      selectedOptions: { name: string; value: string }[];
+                      product: { handle: string };
+                    } | null;
+                  };
+                }>;
+              };
+            };
+          }>;
+        };
+      } | null;
+    }>({
+      query: queries.GET_CUSTOMER_ORDERS,
+      variables: { customerAccessToken: accessToken, first },
+      cache: "no-store",
+    });
+
+    if (!data.customer) {
+      return [];
+    }
+
+    return data.customer.orders.edges.map((edge): Order => {
+      const order = edge.node;
+      return {
+        id: order.id,
+        name: order.name,
+        orderNumber: order.orderNumber,
+        processedAt: order.processedAt,
+        fulfillmentStatus: order.fulfillmentStatus,
+        financialStatus: order.financialStatus,
+        totalPrice: parseFloat(order.totalPrice.amount),
+        subtotalPrice: parseFloat(order.subtotalPrice.amount),
+        shippingPrice: parseFloat(order.totalShippingPrice.amount),
+        currencyCode: order.totalPrice.currencyCode,
+        shippingAddress: order.shippingAddress ? {
+          address1: order.shippingAddress.address1,
+          city: order.shippingAddress.city,
+          province: order.shippingAddress.province,
+          country: order.shippingAddress.country,
+          zip: order.shippingAddress.zip,
+        } : null,
+        lineItems: order.lineItems.edges.map((itemEdge): OrderLineItem => {
+          const item = itemEdge.node;
+          return {
+            title: item.title,
+            quantity: item.quantity,
+            price: parseFloat(item.originalTotalPrice.amount),
+            currencyCode: item.originalTotalPrice.currencyCode,
+            variantTitle: item.variant?.title || null,
+            image: item.variant?.image?.url || null,
+            productHandle: item.variant?.product?.handle || null,
+            options: item.variant?.selectedOptions || [],
+          };
+        }),
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching customer orders:", error);
+    return [];
+  }
 }
 

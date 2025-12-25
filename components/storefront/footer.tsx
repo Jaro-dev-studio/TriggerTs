@@ -67,10 +67,11 @@ export function Footer() {
           {/* Brand column */}
           <div className="col-span-2 sm:col-span-1">
             <Link href="/" className="inline-block mb-4">
-              <span className="text-lg font-bold tracking-tight">
-                <span className="text-foreground">Trigger</span>
-                <span className="text-gradient">Ts</span>
-              </span>
+              <img
+                src="/logo.png"
+                alt="TriggerTs"
+                className="h-8 w-auto"
+              />
             </Link>
             {/* Social links */}
             <div className="flex gap-2">

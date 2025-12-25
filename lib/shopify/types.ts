@@ -235,3 +235,36 @@ export interface Customer {
   phone: string | null;
 }
 
+export interface Order {
+  id: string;
+  name: string;
+  orderNumber: number;
+  processedAt: string;
+  fulfillmentStatus: string;
+  financialStatus: string;
+  totalPrice: number;
+  subtotalPrice: number;
+  shippingPrice: number;
+  currencyCode: string;
+  shippingAddress: {
+    address1: string | null;
+    city: string | null;
+    province: string | null;
+    country: string | null;
+    zip: string | null;
+  } | null;
+  lineItems: OrderLineItem[];
+}
+
+export interface OrderLineItem {
+  title: string;
+  quantity: number;
+  price: number;
+  currencyCode: string;
+  variantTitle: string | null;
+  image: string | null;
+  productHandle: string | null;
+  options: { name: string; value: string }[];
+}
+
+

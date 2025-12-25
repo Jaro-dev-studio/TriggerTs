@@ -77,7 +77,13 @@
 - Minimize re-renders
 - Favor server components and Next.js SSR
 - Use dynamic imports for heavy components
-- Optimize images with next/image
+
+## Images
+
+- Use native HTML `<img>` element instead of Next.js `<Image>` component
+- Do not use Next.js Image-specific props like `fill`, `priority`, or `sizes` on `<img>`
+- For responsive images, use CSS classes (e.g., `w-full h-full object-cover`)
+- For aspect ratios, use parent containers with Tailwind aspect ratio classes
 
 ## Package Manager
 

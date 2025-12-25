@@ -88,7 +88,6 @@ export function ProductGrid({
                     key={product.id}
                     product={product}
                     index={index}
-                    priority={index < 4}
                   />
                 ))}
               </div>

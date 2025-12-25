@@ -271,17 +271,14 @@ export function Navigation({ cartItemCount = 0, onCartClick }: NavigationProps) 
             <Link
               href="/"
               onClick={() => closeAllMenus(true)}
-              className="absolute left-1/2 transform -translate-x-1/2 min-h-[40px] flex items-center"
-              aria-label="TriggerTs Home"
+              className="absolute left-1/2 transform -translate-x-1/2 min-h-[40px] flex items-center group"
+              aria-label="Teodorus Home"
             >
-              <motion.span
-                className="text-base sm:text-lg md:text-xl font-bold tracking-[0.1em] sm:tracking-[0.15em] uppercase"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.2 }}
-              >
-                <span className="text-foreground">TRIGGER</span>
-                <span className="text-gradient">TS</span>
-              </motion.span>
+              <img
+                src="/teodorus.png"
+                alt="Teodorus"
+                className="h-6 sm:h-7 md:h-8 w-auto"
+              />
             </Link>
 
             {/* Right side - Wishlist, Account, Cart */}

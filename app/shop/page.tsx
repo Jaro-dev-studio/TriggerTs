@@ -4,7 +4,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { ProductCard } from "@/components/storefront";
 import { RevealText } from "@/components/storefront/animated-text";
-import { getProducts, getCollections } from "@/lib/shopify";
+import { getProducts, getCollections, getCollectionProducts } from "@/lib/shopify";
 import type { Product, Collection } from "@/lib/shopify/types";
 import { cn } from "@/lib/utils";
 
@@ -16,12 +16,14 @@ const sortOptions = [
 ];
 
 export default function ShopPage() {
-  const [products, setProducts] = React.useState<Product[]>([]);
+  const [allProducts, setAllProducts] = React.useState<Product[]>([]);
+  const [displayProducts, setDisplayProducts] = React.useState<Product[]>([]);
   const [collections, setCollections] = React.useState<Omit<Collection, "products">[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [activeCategory, setActiveCategory] = React.useState("all");
   const [sortBy, setSortBy] = React.useState("featured");
 
+  // Initial data fetch
   React.useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -30,7 +32,8 @@ export default function ShopPage() {
           getProducts(),
           getCollections(),
         ]);
-        setProducts(productsData);
+        setAllProducts(productsData);
+        setDisplayProducts(productsData);
         setCollections(collectionsData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -42,18 +45,41 @@ export default function ShopPage() {
     fetchData();
   }, []);
 
+  // Fetch products when category changes
+  React.useEffect(() => {
+    const fetchCategoryProducts = async () => {
+      if (activeCategory === "all") {
+        setDisplayProducts(allProducts);
+        return;
+      }
+
+      setIsLoading(true);
+      try {
+        const { products } = await getCollectionProducts(activeCategory);
+        setDisplayProducts(products);
+      } catch (error) {
+        console.error("Error fetching collection products:", error);
+        setDisplayProducts([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCategoryProducts();
+  }, [activeCategory, allProducts]);
+
   const categories = React.useMemo(() => {
-    const allCategory = { id: "all", name: "All", count: products.length };
+    const allCategory = { id: "all", name: "All", count: allProducts.length };
     const collectionCategories = collections.map((c) => ({
       id: c.handle,
       name: c.title,
       count: 0,
     }));
     return [allCategory, ...collectionCategories];
-  }, [collections, products.length]);
+  }, [collections, allProducts.length]);
 
   const filteredProducts = React.useMemo(() => {
-    let filtered = [...products];
+    const filtered = [...displayProducts];
 
     switch (sortBy) {
       case "price-low":
@@ -65,7 +91,7 @@ export default function ShopPage() {
       default:
         return filtered;
     }
-  }, [products, sortBy]);
+  }, [displayProducts, sortBy]);
 
   return (
     <div className="pt-12 sm:pt-14 md:pt-16">

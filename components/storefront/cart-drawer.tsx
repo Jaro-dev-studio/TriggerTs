@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 interface CartItem {
   id: string;
@@ -65,43 +66,45 @@ export function CartDrawer({
             className="fixed right-0 top-0 bottom-0 z-50 w-full sm:w-[400px] sm:max-w-[90vw] bg-background border-l border-border shadow-2xl flex flex-col"
           >
             {/* Header - Safe area aware */}
-            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-border safe-area-inset-top">
-              <h2 className="text-lg sm:text-xl font-semibold text-foreground">
-                Your Cart ({items.length})
-              </h2>
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={onClose}
-                className="h-11 w-11 sm:h-10 sm:w-10 flex items-center justify-center rounded-full hover:bg-secondary active:bg-secondary transition-colors"
-                aria-label="Close cart"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={1.5}
+            <div className="border-b border-border safe-area-inset-top">
+              <div className="flex items-center justify-between px-6 sm:px-8 h-16">
+                <h2 className="text-sm font-medium tracking-widest uppercase text-foreground">
+                  Cart {items.length > 0 && <span className="text-muted-foreground">({items.length})</span>}
+                </h2>
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={onClose}
+                  className="h-10 w-10 flex items-center justify-center rounded-full hover:bg-secondary active:bg-secondary transition-colors"
+                  aria-label="Close cart"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </motion.button>
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </motion.button>
+              </div>
             </div>
 
             {/* Cart items - Scrollable */}
-            <div className="flex-1 overflow-y-auto overscroll-contain p-4 sm:p-6">
+            <div className="flex-1 overflow-y-auto overscroll-contain px-6 sm:px-8 py-10">
               {items.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full text-center py-12">
-                  <div className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center mb-4">
+                <div className="flex flex-col items-center justify-center h-full text-center">
+                  <div className="w-20 h-20 rounded-full bg-secondary flex items-center justify-center mb-8">
                     <svg
-                      className="w-8 h-8 text-muted-foreground"
+                      className="w-9 h-9 text-muted-foreground"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
-                      strokeWidth={1.5}
+                      strokeWidth={1.25}
                     >
                       <path
                         strokeLinecap="round"
@@ -110,63 +113,59 @@ export function CartDrawer({
                       />
                     </svg>
                   </div>
-                  <p className="text-foreground font-medium mb-2">
-                    Your cart is empty.
+                  <h3 className="text-xl font-display text-foreground mb-3">
+                    Your cart is empty
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-10 max-w-[200px]">
+                    Discover our curated collection
                   </p>
-                  <p className="text-sm text-muted-foreground mb-6">
-                    Time to make a statement.
-                  </p>
-                  <motion.div whileTap={{ scale: 0.98 }} className="w-full max-w-xs">
-                    <Link
-                      href="/shop"
-                      onClick={onClose}
-                      className="flex items-center justify-center gap-2 w-full h-12 sm:h-11 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary-hover active:bg-primary-hover transition-colors"
-                    >
-                      Browse Collection
+                  <Button asChild className="w-full max-w-[240px] rounded-full h-12">
+                    <Link href="/shop" onClick={onClose}>
+                      Shop Now
                     </Link>
-                  </motion.div>
+                  </Button>
                 </div>
               ) : (
-                <div className="space-y-4 sm:space-y-6">
+                <div className="space-y-6">
                   {items.map((item, index) => (
                     <motion.div
                       key={item.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className="flex gap-3 sm:gap-4"
+                      className="flex gap-4"
                     >
                       {/* Product image */}
-                      <div className="w-20 h-24 sm:w-20 sm:h-24 rounded-lg bg-secondary flex-shrink-0 overflow-hidden">
-                        <div className="w-full h-full flex items-center justify-center text-foreground/10 font-display text-base sm:text-lg">
+                      <div className="w-24 h-28 bg-secondary flex-shrink-0 overflow-hidden">
+                        <div className="w-full h-full flex items-center justify-center text-foreground/5 font-display text-xl">
                           TT
                         </div>
                       </div>
 
                       {/* Product info */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-medium text-sm sm:text-base text-foreground truncate">
+                      <div className="flex-1 min-w-0 flex flex-col">
+                        <h3 className="text-sm font-medium text-foreground leading-snug">
                           {item.title}
                         </h3>
-                        <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1">
+                        <p className="text-xs text-muted-foreground mt-1">
                           Size: {item.size}
                         </p>
-                        <p className="text-sm font-medium text-foreground mt-0.5 sm:mt-1">
-                          ${item.price}
+                        <p className="text-sm text-foreground mt-1">
+                          ${item.price.toFixed(2)}
                         </p>
 
                         {/* Quantity controls */}
-                        <div className="flex items-center gap-3 mt-2 sm:mt-3">
+                        <div className="flex items-center gap-4 mt-auto pt-3">
                           <div className="flex items-center border border-border rounded-full">
                             <button
                               onClick={() =>
                                 onUpdateQuantity(item.id, Math.max(0, item.quantity - 1))
                               }
-                              className="w-9 h-9 sm:w-8 sm:h-8 flex items-center justify-center text-muted-foreground hover:text-foreground active:text-foreground transition-colors"
+                              className="w-8 h-8 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary active:text-foreground transition-colors"
                               aria-label="Decrease quantity"
                             >
                               <svg
-                                className="w-4 h-4"
+                                className="w-3.5 h-3.5"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -174,23 +173,23 @@ export function CartDrawer({
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
-                                  strokeWidth={2}
+                                  strokeWidth={1.5}
                                   d="M20 12H4"
                                 />
                               </svg>
                             </button>
-                            <span className="w-8 text-center text-sm font-medium">
+                            <span className="w-8 text-center text-xs font-medium">
                               {item.quantity}
                             </span>
                             <button
                               onClick={() =>
                                 onUpdateQuantity(item.id, item.quantity + 1)
                               }
-                              className="w-9 h-9 sm:w-8 sm:h-8 flex items-center justify-center text-muted-foreground hover:text-foreground active:text-foreground transition-colors"
+                              className="w-8 h-8 flex items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary active:text-foreground transition-colors"
                               aria-label="Increase quantity"
                             >
                               <svg
-                                className="w-4 h-4"
+                                className="w-3.5 h-3.5"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -198,7 +197,7 @@ export function CartDrawer({
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
-                                  strokeWidth={2}
+                                  strokeWidth={1.5}
                                   d="M12 4v16m8-8H4"
                                 />
                               </svg>
@@ -207,7 +206,7 @@ export function CartDrawer({
 
                           <button
                             onClick={() => onRemoveItem(item.id)}
-                            className="text-xs sm:text-sm text-muted-foreground hover:text-destructive active:text-destructive transition-colors py-1"
+                            className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors"
                           >
                             Remove
                           </button>
@@ -221,28 +220,30 @@ export function CartDrawer({
 
             {/* Footer - Safe area aware */}
             {items.length > 0 && (
-              <div className="border-t border-border p-4 sm:p-6 space-y-3 sm:space-y-4 safe-area-inset-bottom bg-background">
-                <div className="flex justify-between text-base sm:text-lg">
-                  <span className="text-muted-foreground">Subtotal</span>
-                  <span className="font-semibold text-foreground">
-                    ${subtotal.toFixed(2)}
-                  </span>
+              <div className="border-t border-border px-6 sm:px-8 py-6 space-y-5 safe-area-inset-bottom bg-background">
+                <div className="space-y-2">
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-sm text-muted-foreground">Subtotal</span>
+                    <span className="text-lg font-display text-foreground">
+                      ${subtotal.toFixed(2)}
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Shipping and taxes calculated at checkout
+                  </p>
                 </div>
-                <p className="text-xs sm:text-sm text-muted-foreground">
-                  Shipping and taxes calculated at checkout.
-                </p>
-                <motion.button
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full h-14 sm:h-12 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary-hover active:bg-primary-hover transition-colors"
-                >
-                  Proceed Anyway
-                </motion.button>
-                <button
-                  onClick={onClose}
-                  className="w-full h-12 sm:h-10 text-center text-muted-foreground hover:text-foreground active:text-foreground transition-colors"
-                >
-                  Continue Shopping
-                </button>
+                <div className="space-y-3 pt-1">
+                  <Button className="w-full h-12 rounded-full">
+                    Checkout
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={onClose}
+                    className="w-full h-10 rounded-full"
+                  >
+                    Continue Shopping
+                  </Button>
+                </div>
               </div>
             )}
           </motion.div>

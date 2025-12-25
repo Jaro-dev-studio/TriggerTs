@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useWishlist } from "@/lib/context/wishlist-context";
@@ -11,10 +10,9 @@ import type { Product } from "@/lib/shopify/types";
 interface ProductCardProps {
   product: Product;
   index?: number;
-  priority?: boolean;
 }
 
-export function ProductCard({ product, index = 0, priority = false }: ProductCardProps) {
+export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [isHovered, setIsHovered] = React.useState(false);
   const [isTouched, setIsTouched] = React.useState(false);
   const { isInWishlist, toggleItem } = useWishlist();
@@ -56,8 +54,8 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
       onTouchEnd={handleTouchEnd}
       className="group relative"
     >
-      <Link
-        href={`/product/${product.handle}`}
+      <Link 
+        href={`/product/${product.handle}`} 
         className="block touch-manipulation"
       >
         {/* Image container */}
@@ -71,29 +69,26 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
               }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Image
+              <img
                 src={product.image}
                 alt={product.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                priority={priority}
+                className="absolute inset-0 w-full h-full object-cover"
               />
             </motion.div>
           ) : (
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-secondary to-card"
-              animate={{
-                scale: isActive ? 1.03 : 1,
-              }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="text-center p-4 sm:p-6">
-                <p className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-foreground/[0.03] sm:text-foreground/5">
-                  {product.title.split(" ")[0]}
-                </p>
-              </div>
-            </motion.div>
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-secondary to-card"
+            animate={{
+              scale: isActive ? 1.03 : 1,
+            }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="text-center p-4 sm:p-6">
+              <p className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-foreground/[0.03] sm:text-foreground/5">
+                {product.title.split(" ")[0]}
+              </p>
+            </div>
+          </motion.div>
           )}
 
           {/* Gradient overlay on hover/touch */}
@@ -106,16 +101,16 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
 
           {/* Tagline reveal on hover/touch */}
           {tagline && (
-            <motion.div
-              className="absolute bottom-0 left-0 right-0 p-3 sm:p-4"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 10 }}
-              transition={{ duration: 0.25 }}
-            >
-              <p className="text-xs sm:text-sm text-foreground/90 italic line-clamp-2">
+          <motion.div
+            className="absolute bottom-0 left-0 right-0 p-3 sm:p-4"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 10 }}
+            transition={{ duration: 0.25 }}
+          >
+            <p className="text-xs sm:text-sm text-foreground/90 italic line-clamp-2">
                 &ldquo;{tagline}&rdquo;
-              </p>
-            </motion.div>
+            </p>
+          </motion.div>
           )}
 
           {/* Wishlist button */}
@@ -123,7 +118,7 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
             className={cn(
               "absolute top-3 right-3 sm:top-4 sm:right-4 h-11 w-11 sm:h-10 sm:w-10",
               "flex items-center justify-center rounded-full",
-              "bg-foreground/80 backdrop-blur-sm",
+              "bg-background/90 backdrop-blur-sm shadow-sm",
               "opacity-0 group-hover:opacity-100 transition-opacity",
               isActive && "opacity-100"
             )}
@@ -134,7 +129,7 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
             <svg
               className={cn(
                 "w-5 h-5 transition-colors",
-                isWishlisted ? "text-primary fill-primary" : "text-background"
+                isWishlisted ? "text-primary fill-primary" : "text-muted-foreground"
               )}
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -232,19 +227,17 @@ export function FeaturedProductCard({ product, reverse = false }: FeaturedProduc
           transition={{ duration: 0.3 }}
         >
           {product.image ? (
-            <Image
+            <img
               src={product.image}
               alt={product.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              className="absolute inset-0 w-full h-full object-cover"
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-secondary to-card">
-              <p className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-foreground/[0.03] sm:text-foreground/5">
-                {product.title.split(" ")[0]}
-              </p>
-            </div>
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-secondary to-card">
+            <p className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-foreground/[0.03] sm:text-foreground/5">
+              {product.title.split(" ")[0]}
+            </p>
+          </div>
           )}
 
           <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300" />
@@ -255,13 +248,13 @@ export function FeaturedProductCard({ product, reverse = false }: FeaturedProduc
               e.preventDefault();
               toggleItem(product.id);
             }}
-            className="absolute top-4 right-4 h-12 w-12 flex items-center justify-center rounded-full bg-foreground/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"
+            className="absolute top-4 right-4 h-12 w-12 flex items-center justify-center rounded-full bg-background/90 backdrop-blur-sm shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
             aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
           >
             <svg
               className={cn(
                 "w-6 h-6 transition-colors",
-                isWishlisted ? "text-primary fill-primary" : "text-background"
+                isWishlisted ? "text-primary fill-primary" : "text-muted-foreground"
               )}
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -294,9 +287,9 @@ export function FeaturedProductCard({ product, reverse = false }: FeaturedProduc
         </h3>
 
         {tagline && (
-          <p className="text-lg sm:text-xl text-muted-foreground italic">
+        <p className="text-lg sm:text-xl text-muted-foreground italic">
             &ldquo;{tagline}&rdquo;
-          </p>
+        </p>
         )}
 
         <p className="text-sm sm:text-base text-muted-foreground leading-relaxed line-clamp-3">
