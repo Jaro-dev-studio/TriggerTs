@@ -1,290 +1,248 @@
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Avatar } from "@/components/ui/avatar";
+"use client";
 
-/**
- * CUSTOMIZE: Dashboard statistics data
- */
-const dashboardStats = [
-  { label: "Total Revenue", value: "$45,231.89", change: "+20.1%", isPositive: true },
-  { label: "Subscriptions", value: "+2,350", change: "+180.1%", isPositive: true },
-  { label: "Active Users", value: "+12,234", change: "+19%", isPositive: true },
-  { label: "Conversion Rate", value: "3.2%", change: "-4.1%", isPositive: false },
-];
+import * as React from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Navigation, Hero, ProductGrid, Footer, CartDrawer } from "@/components/storefront";
+import { RevealText } from "@/components/storefront/animated-text";
+import { CartProvider, useCart } from "@/components/storefront/cart-drawer";
+import { getFeaturedProducts } from "@/lib/products";
 
-/**
- * CUSTOMIZE: Recent activity data
- */
-const recentActivity = [
-  {
-    user: "Sarah Chen",
-    action: "Created a new project",
-    project: "Marketing Campaign",
-    time: "2 minutes ago",
-    avatar: "SC",
-  },
-  {
-    user: "Mike Johnson",
-    action: "Updated team settings",
-    project: "Development",
-    time: "1 hour ago",
-    avatar: "MJ",
-  },
-  {
-    user: "Emily Brown",
-    action: "Invited a new member",
-    project: "Design System",
-    time: "3 hours ago",
-    avatar: "EB",
-  },
-  {
-    user: "Alex Rivera",
-    action: "Completed onboarding",
-    project: "Sales Team",
-    time: "5 hours ago",
-    avatar: "AR",
-  },
-  {
-    user: "Jordan Lee",
-    action: "Deployed to production",
-    project: "API v2.0",
-    time: "Yesterday",
-    avatar: "JL",
-  },
-];
+function HomeContent() {
+  const { items, isOpen, closeCart, updateQuantity, removeItem, openCart } = useCart();
+  const featuredProducts = getFeaturedProducts();
 
-/**
- * CUSTOMIZE: Projects data
- */
-const projects = [
-  { name: "Marketing Campaign", status: "active", progress: 75, members: 4 },
-  { name: "Product Launch", status: "active", progress: 45, members: 6 },
-  { name: "Customer Portal", status: "review", progress: 90, members: 3 },
-  { name: "Mobile App v2", status: "active", progress: 30, members: 5 },
-];
-
-/**
- * Dashboard home page - main view for signed-in users.
- * CUSTOMIZE: Update dashboard widgets, stats, and data.
- */
-export default function DashboardPage() {
   return (
-    <div className="p-6 space-y-6">
-      {/* Page Header */}
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          Dashboard
-        </h1>
-        <p className="text-muted-foreground">
-          {/* CUSTOMIZE: Update welcome message */}
-          Welcome back, John. Here&apos;s what&apos;s happening today.
-        </p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Navigation cartItemCount={items.length} onCartClick={openCart} />
 
-      {/* Stats Grid */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {dashboardStats.map((stat, index) => (
-          <Card key={index}>
-            <CardHeader className="pb-2">
-              <CardDescription className="text-sm font-medium">
-                {stat.label}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stat.value}</div>
-              <p className="text-xs text-muted-foreground mt-1">
-                <span
-                  className={
-                    stat.isPositive ? "text-accent" : "text-destructive"
-                  }
-                >
-                  {stat.change}
-                </span>{" "}
-                from last month
-              </p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      <main>
+        {/* Hero Section */}
+        <Hero />
 
-      <div className="grid gap-6 lg:grid-cols-7">
-        {/* Projects Section */}
-        <Card className="lg:col-span-4">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <div>
-              <CardTitle>Projects</CardTitle>
-              <CardDescription>
-                Your active projects and their progress.
-              </CardDescription>
-            </div>
-            <Button variant="outline" size="sm">
-              View All
-            </Button>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {projects.map((project, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between gap-4"
-                >
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <p className="font-medium truncate">{project.name}</p>
-                      <Badge
-                        variant={
-                          project.status === "active" ? "accent" : "secondary"
-                        }
-                        className="text-xs"
+        {/* Featured Products */}
+        <ProductGrid
+          products={featuredProducts}
+          title="Featured Statements"
+          subtitle="The opinions people can't stop talking about."
+          showFeatured
+          columns={3}
+        />
+
+        {/* Brand Story Section */}
+        <section className="py-20 sm:py-32 bg-secondary">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+              <RevealText>
+                <div className="space-y-6">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-foreground">
+                    Not just shirts.
+                    <br />
+                    <span className="text-gradient">Statements.</span>
+                  </h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    TriggerTs was born from a simple observation: the smartest people 
+                    in the room often have the sharpest sense of humor. We make clothes 
+                    for those who can laugh at the chaos while looking expensive doing it.
+                  </p>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Every piece is crafted with premium materials and printed with 
+                    opinions that might make someone uncomfortable. That&apos;s the point.
+                  </p>
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Link
+                      href="/about"
+                      className="inline-flex items-center gap-2 text-primary font-medium animated-underline"
+                    >
+                      Read Our Story
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                       >
-                        {project.status}
-                      </Badge>
-                    </div>
-                    <div className="mt-2 flex items-center gap-2">
-                      <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
-                        <div
-                          className="h-full bg-primary rounded-full transition-all"
-                          style={{ width: `${project.progress}%` }}
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
                         />
-                      </div>
-                      <span className="text-xs text-muted-foreground w-10 text-right">
-                        {project.progress}%
-                      </span>
+                      </svg>
+                    </Link>
+                  </motion.div>
+                </div>
+              </RevealText>
+
+              <RevealText delay={0.2}>
+                <div className="relative">
+                  <div className="aspect-square rounded-2xl bg-card overflow-hidden glow-gold">
+                    <div className="w-full h-full flex items-center justify-center">
+                      <p className="text-8xl font-display font-bold text-foreground/5">
+                        Ts
+                      </p>
                     </div>
                   </div>
-                  <div className="flex -space-x-2">
-                    {Array.from({ length: Math.min(project.members, 3) }).map(
-                      (_, i) => (
-                        <Avatar key={i} size="sm" fallback={`U${i + 1}`} />
-                      )
-                    )}
-                    {project.members > 3 && (
-                      <Avatar
-                        size="sm"
-                        fallback={`+${project.members - 3}`}
-                      />
-                    )}
-                  </div>
+                  {/* Floating accent */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5 }}
+                    className="absolute -bottom-6 -right-6 px-6 py-4 bg-primary text-primary-foreground rounded-xl shadow-lg"
+                  >
+                    <p className="text-sm font-medium">Premium Quality</p>
+                    <p className="text-xs opacity-80">100% Organic Cotton</p>
+                  </motion.div>
                 </div>
-              ))}
+              </RevealText>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Recent Activity */}
-        <Card className="lg:col-span-3">
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-            <CardDescription>
-              Latest updates from your team.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {recentActivity.map((item, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  <Avatar fallback={item.avatar} size="sm" />
-                  <div className="flex-1 min-w-0 space-y-1">
-                    <p className="text-sm">
-                      <span className="font-medium">{item.user}</span>{" "}
-                      <span className="text-muted-foreground">
-                        {item.action}
-                      </span>
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {item.project} &middot; {item.time}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Quick Actions */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Quick Actions</CardTitle>
-          <CardDescription>Common tasks you can perform.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-wrap gap-3">
-            {/* CUSTOMIZE: Update quick action buttons */}
-            <Button variant="outline">
-              <svg
-                className="mr-2 h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                />
-              </svg>
-              New Project
-            </Button>
-            <Button variant="outline">
-              <svg
-                className="mr-2 h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
-                />
-              </svg>
-              Invite Member
-            </Button>
-            <Button variant="outline">
-              <svg
-                className="mr-2 h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              View Reports
-            </Button>
-            <Button variant="outline">
-              <svg
-                className="mr-2 h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
-                />
-              </svg>
-              Export Data
-            </Button>
           </div>
-        </CardContent>
-      </Card>
+        </section>
+
+        {/* Categories Section */}
+        <section className="py-20 sm:py-32">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <RevealText>
+              <div className="text-center mb-16">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
+                  Browse by Mood
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  Find the perfect shirt for every occasion you&apos;re about to ruin.
+                </p>
+              </div>
+            </RevealText>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { 
+                  title: "Corporate Satire", 
+                  subtitle: "For the 9-5 dissenters",
+                  href: "/collections/corporate" 
+                },
+                { 
+                  title: "Internet Money", 
+                  subtitle: "WAGMI (probably)",
+                  href: "/collections/crypto" 
+                },
+                { 
+                  title: "Tech Life", 
+                  subtitle: "0 bugs, many opinions",
+                  href: "/collections/tech" 
+                },
+              ].map((category, index) => (
+                <motion.div
+                  key={category.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                >
+                  <Link
+                    href={category.href}
+                    className="group block relative aspect-[4/3] rounded-xl overflow-hidden bg-card"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                      <h3 className="text-2xl font-display font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                        {category.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        {category.subtitle}
+                      </p>
+                    </div>
+                    <motion.div
+                      className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+                      initial={{ y: 10 }}
+                      whileHover={{ y: 0 }}
+                    >
+                      <span className="text-sm text-primary font-medium">
+                        Explore
+                      </span>
+                    </motion.div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Social Proof / Quote Section */}
+        <section className="py-20 sm:py-32 bg-card">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <RevealText>
+              <blockquote className="text-2xl sm:text-3xl md:text-4xl font-display font-medium text-foreground leading-relaxed mb-8">
+                &ldquo;Finally, a brand that understands that having taste and 
+                being insufferable aren&apos;t mutually exclusive.&rdquo;
+              </blockquote>
+            </RevealText>
+            <RevealText delay={0.2}>
+              <p className="text-muted-foreground">
+                <span className="text-foreground font-medium">Anonymous Customer</span>
+                {" "}&mdash; Verified Purchase, 5 Stars
+              </p>
+            </RevealText>
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="py-20 sm:py-32">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <RevealText>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-foreground mb-6">
+                Ready to make a statement?
+              </h2>
+            </RevealText>
+            <RevealText delay={0.1}>
+              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Join the thousands of people who&apos;ve decided their wardrobe 
+                should reflect their personality. For better or worse.
+              </p>
+            </RevealText>
+            <RevealText delay={0.2}>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                  href="/shop"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-foreground text-background font-medium rounded-full hover:bg-foreground/90 transition-colors"
+                >
+                  Shop All Shirts
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </Link>
+              </motion.div>
+            </RevealText>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+
+      <CartDrawer
+        isOpen={isOpen}
+        onClose={closeCart}
+        items={items}
+        onUpdateQuantity={updateQuantity}
+        onRemoveItem={removeItem}
+      />
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <CartProvider>
+      <HomeContent />
+    </CartProvider>
   );
 }

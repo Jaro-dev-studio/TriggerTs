@@ -1,32 +1,36 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Playfair_Display, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/header";
-import { Sidebar } from "@/components/layout/sidebar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
-/**
- * CUSTOMIZE: Update metadata for client branding
- */
 export const metadata: Metadata = {
-  title: "DemoApp - Dashboard",
-  description: "Your product dashboard. Manage your projects, analytics, and team.",
-  keywords: ["dashboard", "product", "saas", "platform"],
+  title: "TriggerTs | Luxury Meets Internet Money",
+  description: "Ironic, funny, intelligently controversial t-shirts for the discerning internet native. Quiet luxury with a smirk.",
+  keywords: ["t-shirts", "ironic", "luxury streetwear", "internet culture", "meme fashion"],
+  openGraph: {
+    title: "TriggerTs | Luxury Meets Internet Money",
+    description: "Ironic, funny, intelligently controversial t-shirts for the discerning internet native.",
+    type: "website",
+  },
 };
 
-/**
- * Root layout component with dashboard structure.
- * CUSTOMIZE: Update branding and navigation per client requirements.
- */
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,22 +39,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} h-full bg-background font-sans antialiased`}
+        className={`${inter.variable} ${playfair.variable} ${geistMono.variable} h-full bg-background font-sans antialiased`}
       >
-        <div className="flex h-full flex-col">
-          {/* CUSTOMIZE: Update header branding */}
-          <Header />
-
-          <div className="flex flex-1 overflow-hidden">
-            {/* Sidebar - hidden on mobile */}
-            <div className="hidden md:flex">
-              <Sidebar />
-            </div>
-
-            {/* Main content */}
-            <main className="flex-1 overflow-auto">{children}</main>
-          </div>
-        </div>
+        {children}
       </body>
     </html>
   );

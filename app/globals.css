@@ -1,51 +1,55 @@
 @import "tailwindcss";
 
 /* 
- * CUSTOMIZE: Brand Colors
- * Update these CSS variables to match your client's brand colors.
- * All components use these variables for consistent theming.
+ * TriggerTs - Luxury Meets Internet Money
+ * Color palette: High-contrast base with premium accents
  */
 :root {
-  /* Primary brand color - buttons, links, accents */
-  --color-primary: #3B82F6;
-  --color-primary-hover: #2563EB;
-  --color-primary-foreground: #FFFFFF;
+  /* Base colors - deep black / off-white */
+  --color-background: #0A0A0A;
+  --color-foreground: #FAFAFA;
+  
+  /* Primary - polished gold accent */
+  --color-primary: #C9A227;
+  --color-primary-hover: #E5B82A;
+  --color-primary-foreground: #0A0A0A;
 
-  /* Secondary color - backgrounds, subtle elements */
-  --color-secondary: #1E293B;
-  --color-secondary-hover: #334155;
-  --color-secondary-foreground: #FFFFFF;
+  /* Secondary - chrome/silver */
+  --color-secondary: #1A1A1A;
+  --color-secondary-hover: #2A2A2A;
+  --color-secondary-foreground: #FAFAFA;
 
-  /* Accent color - highlights, badges, success states */
-  --color-accent: #10B981;
-  --color-accent-hover: #059669;
-  --color-accent-foreground: #FFFFFF;
-
-  /* Background colors */
-  --color-background: #FFFFFF;
-  --color-foreground: #0F172A;
+  /* Accent - electric neon green */
+  --color-accent: #39FF14;
+  --color-accent-hover: #50FF30;
+  --color-accent-foreground: #0A0A0A;
 
   /* Muted elements */
-  --color-muted: #F1F5F9;
-  --color-muted-foreground: #64748B;
+  --color-muted: #1A1A1A;
+  --color-muted-foreground: #888888;
 
   /* Border color */
-  --color-border: #E2E8F0;
+  --color-border: #2A2A2A;
 
   /* Card backgrounds */
-  --color-card: #FFFFFF;
-  --color-card-foreground: #0F172A;
+  --color-card: #111111;
+  --color-card-foreground: #FAFAFA;
 
   /* Destructive/error states */
-  --color-destructive: #EF4444;
+  --color-destructive: #FF3B3B;
   --color-destructive-foreground: #FFFFFF;
 
   /* Input and form elements */
-  --color-input: #E2E8F0;
-  --color-ring: #3B82F6;
+  --color-input: #2A2A2A;
+  --color-ring: #C9A227;
 
-  /* Border radius */
-  --radius: 0.5rem;
+  /* Off-white / bone / ivory variants */
+  --color-ivory: #F5F5DC;
+  --color-bone: #E3DAC9;
+  --color-cream: #FFFDD0;
+
+  /* Border radius - slightly sharper for luxury feel */
+  --radius: 0.375rem;
 }
 
 /* Tailwind v4 theme configuration */
@@ -80,24 +84,49 @@
   --color-input: var(--color-input);
   --color-ring: var(--color-ring);
 
+  --color-ivory: var(--color-ivory);
+  --color-bone: var(--color-bone);
+  --color-cream: var(--color-cream);
+
   /* Font families */
-  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-playfair), Georgia, serif;
   --font-mono: var(--font-geist-mono), monospace;
 
   /* Border radius */
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
 }
 
 /* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Luxury typography utilities */
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Selection styling */
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-background);
 }
 
 /* Focus ring utility */
@@ -110,26 +139,87 @@ body {
   outline-offset: 2px;
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom scrollbar (optional) */
+/* Custom scrollbar - minimal luxury style */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-muted);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-muted-foreground);
-  border-radius: 4px;
+  background: var(--color-border);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-secondary);
+  background: var(--color-muted-foreground);
+}
+
+/* Luxury text gradient */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #E5C563 50%, var(--color-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle glow effects */
+.glow-gold {
+  box-shadow: 0 0 40px rgba(201, 162, 39, 0.15);
+}
+
+.glow-accent {
+  box-shadow: 0 0 40px rgba(57, 255, 20, 0.1);
+}
+
+/* Noise texture overlay for depth */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Animated underline for links */
+.animated-underline {
+  position: relative;
+}
+
+.animated-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+.animated-underline:hover::after {
+  width: 100%;
+}
+
+/* Smooth image loading */
+img {
+  transition: opacity 0.3s ease;
+}
+
+img[loading] {
+  opacity: 0;
+}
+
+/* Premium button press effect */
+.btn-press {
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.98);
 }
